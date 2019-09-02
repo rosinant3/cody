@@ -1,0 +1,85 @@
+.Cody-Contact {
+
+	padding: 1rem;
+	cursor: pointer;
+	transition: opacity, background-color 500ms;
+
+}
+
+.Cody-Contact-Image-Offline {
+
+	border-color: #CDE6CE !important;
+
+}
+
+.Cody-Contact-Image-Online {
+
+	border-color: lightgreen !important;
+
+}
+
+.Cody-Contact-Offline:hover {
+
+	background-color: #CDE6CE;
+	
+}
+
+.Cody-Contact-Offline-Active {
+
+	background-color: #CDE6CE;
+
+}
+
+.Cody-Contact-Online:hover {
+
+	background-color: lightgreen;
+	
+}
+
+.Cody-Contact-Online-Active {
+
+	background-color: lightgreen;
+
+}
+
+.Cody-Image-Chat-Container {
+
+	display: grid;
+	grid-template-columns: 52px auto 52px;
+	grid-template-rows: 52px;
+
+}
+
+.Cody-Sidebar-Chats {
+
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 50% 50%;
+	font-size: 0.8rem;
+	color: darkgreen;
+
+}
+
+.Chat-Msg-Date {
+
+	display: flex;
+	justify-content: center;
+	text-align: center;
+	font-size: 0.8rem;
+	align-items: center;
+
+}
+
+.Cody-Search-Chats-Username {
+
+	padding-left: 1rem;
+	padding-right: 1rem;
+
+}
+
+.Chat-Msg {
+
+	padding-left: 1rem;
+	padding-right: 1rem;
+
+}

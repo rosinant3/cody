@@ -1,0 +1,163 @@
+.LandingPage {
+
+	display: grid;
+	grid-template-columns: 1fr 0.5fr;
+	grid-template-rows: 100%;
+	transition: opacity 0.5s;
+
+}
+
+.CodyImageHidden {
+
+	display: none;
+
+}
+
+.CodySmall {
+
+	display: none;
+
+}
+
+.CodyCover {
+
+	background-image: url("/cody.jpg");
+	height: 100vh;
+	background-position: center;
+	background-size: cover;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 5rem;
+	color: white;
+	cursor: default;
+
+}
+
+.CodyForms {
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 1rem;
+
+}
+
+.CodyForm {
+
+	display: flex;
+	flex-direction: column;
+
+
+}
+
+.CodyForm > input {
+
+	padding: 0.6rem;
+	border-radius: 5px;
+	border-width: 1px;
+	margin-bottom: 0.3rem;
+
+}
+
+.CodyForm > input::placeholder {
+
+	color: black;
+
+}
+
+.CodyForm > div {
+
+	display: flex;
+	flex-direction: row;
+
+}
+
+.CodyForm > div > div {
+
+	padding: 0.5rem;
+	padding-left: 0rem;
+	cursor: pointer;
+	transition: color 1s;
+	font-weight: bold;
+
+}
+
+.CodyForm > div > div:hover {
+
+	color: green;
+
+}
+
+.InputActive {
+
+	color: green;
+
+}
+
+.CodyFormSubmit {
+
+	background-color: white;
+	cursor: pointer;
+	transition: background-color, color, 1s;
+}
+
+.CodyFormSubmit:hover {
+
+	background-color: green;
+	color: white;
+
+}
+
+.ValidationError {
+
+	font-size: 0.9rem;
+	color: darkred;
+	padding: 0.3rem;
+	text-align: center;
+
+}
+
+@media only screen and (max-width: 600px) {
+
+  .LandingPage {
+
+	grid-template-columns: 1fr;
+	grid-template-rows: 20% 80%;
+	
+
+  }
+
+  .CodySmall {
+
+	display: block;
+	font-size: 5rem;
+	color: white;
+	cursor: default;
+
+  }
+
+  .CodyCover {
+
+	align-items: flex-start;
+	padding-top: 2rem;
+	display: none;
+
+  }
+
+  .CodyForms {
+
+	flex-direction: column;
+	justify-content: flex-start;
+	padding-top: 2rem;
+	background-image: url("/cody.jpg");
+	background-position: center;
+	background-size: cover;
+	height: 100vh;
+
+  }
+
+
+}
+

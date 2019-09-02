@@ -1,0 +1,207 @@
+.Cody-Contacts {
+
+	max-height: 70vh;
+	overflow: auto;
+	display: inline-block;
+	width: 100%;
+
+}
+
+.Cody-Contacts::-webkit-scrollbar {
+
+	background-color: white;
+	width: 0.3rem;
+
+}
+
+.Cody-Contacts::-webkit-scrollbar-thumb {
+
+	background-color: lightgreen;
+	border-radius: 5px;
+
+}
+
+.Contact-Request {
+
+	font-size: 0.9rem;
+	display: grid;
+	grid-template-columns: 33% 33% 33%;
+	grid-template-rows: 1fr;
+	padding-left: 2rem;
+	padding-right: 2rem;
+	position: relative;
+	margin: auto;
+	
+}
+
+.Cody-Requests-Title {
+
+	padding: 0.5rem;
+	padding-top: 0rem;
+	text-align: center;
+	font-size: 0.9rem;
+	color: darkgreen;
+	
+}
+
+.Cody-Requests-Title > span {
+
+	cursor: pointer;
+
+}
+
+.Cody-Requests-Title::before {
+
+	background-color: darkgreen;
+	content: "";
+	padding-right: 0.5rem;
+	width: 20%;
+	height: 1px;
+	display: inline-block;
+	border-style: solid;
+	border-color: white;
+
+}
+
+.Cody-Requests-Title::after {
+
+	background-color: darkgreen;
+	content: "";
+	padding-left: 0.5rem;
+	width: 20%;
+	height: 1px;
+	display: inline-block;
+	border-style: solid;
+	border-color: white;
+
+}
+
+.Cody-Requests-Dropdown {
+
+	position: relative;
+	overflow: hidden;
+	opacity: 1;
+	transition: opacity 500ms;
+	display: grid;
+	grid-template-columns: auto;
+	padding: 0rem;
+	padding-bottom: 0.5rem;
+
+}
+
+.Cody-Requests-Dropdown-Closed {
+
+	display: none;
+
+}
+
+.Cody-Request-Panel-Img {
+
+	height: 3rem;
+	width: 3rem;
+	background-position: center;
+	background-size: cover;
+	border-radius: 50%;
+	color: darkgreen;
+	display: flex;
+	position: relative;
+	justify-content: center;
+	align-items: center;
+	border: 1px solid grey;
+	background-color: lightgoldenrodyellow;
+	font-size: 1rem;
+	cursor: pointer;
+	
+}
+
+.Cody-Request-Image-Container {
+
+	padding: 0.5rem;
+	display: flex;
+	justify-content: center;
+	text-align: center;
+	align-items: center;
+
+}
+
+.Cody-Request-Text {
+
+	display: flex;
+	text-align: center;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	padding: 0.5rem;
+	font-weight: 400;
+
+}
+
+.Cody-More-Contact-Requests {
+
+	font-size: 0.8rem;
+	text-align: center;
+	padding: 0.5rem;
+
+}
+
+.Cody-More-Contact-Requests > span {
+
+	cursor: pointer;
+	color: darkgreen;
+
+}
+
+.Request-Hover {
+
+	opacity: 0.7;
+	transition: opacity 500ms;
+
+}
+
+.Request-Hover:hover {
+
+	opacity: 1;
+
+}
+
+.Request-Contact-Info {
+
+	padding: 0.5rem;
+	border-radius: 5px;
+	font-size: 0.8rem;
+	color: darkgreen;
+	
+
+}
+
+
+
+@media only screen and (max-width: 1000px) {
+
+  .Contact-Request {
+
+	padding-left: 0rem;
+	padding-right: 0rem;
+
+
+   }
+
+  /*    SIDEBAR CSS    */
+
+}
+
+@media only screen and (max-width: 800px) {
+
+  
+   .Contact-Request {
+
+	font-size: 0.9rem;
+	display: grid;
+	grid-template-columns: 33% 33% 33%;
+	
+    }
+
+
+  /*    SIDEBAR CSS    */
+
+}

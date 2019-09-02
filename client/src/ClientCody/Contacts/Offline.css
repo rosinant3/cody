@@ -1,0 +1,29 @@
+.Cody-Offline-Title {
+
+	color: #CDE6CE;
+	font-weight: bold;
+
+}
+
+.Cody-Offline-Title::before {
+
+	background-color: #CDE6CE;
+	font-weight: bold;
+
+}
+
+.Cody-Offline-Title::after {
+
+	background-color: #CDE6CE;
+	font-weight: bold;
+
+}
+
+.Cody-More-Contact-Offline {
+
+	font-size: 0.8rem;
+	text-align: center;
+	color: #CDE6CE;
+	font-weight: bold;
+
+}

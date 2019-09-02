@@ -1,0 +1,403 @@
+@import url('https://use.fontawesome.com/releases/v5.6.3/css/all.css');
+
+.Cody {
+
+	display: grid;
+	grid-template-columns: auto 380px;
+	grid-template-rows: 100vh;
+
+}
+
+  /*    SIDEBAR CSS    */
+
+.Cody-Sidebar {
+
+	border-width: 2px;
+	border-left-style: solid;
+	border-left-color: lightgreen;
+	position: relative;
+	overflow: auto;
+
+}
+
+.Cody-User-Panel {
+
+	display: flex;
+	flex-direction: column;
+	padding: 0.5rem;
+
+}
+
+.Cody-Image-User-Container {
+
+	display: flex;
+	justify-content: center;
+
+}
+
+.Cody-User-Panel-Img {
+
+	height: 5rem;
+	width: 5rem;
+	background-position: center;
+	background-size: cover;
+	border-radius: 50%;
+	display: flex;
+	position: relative;
+	justify-content: center;
+	align-items: center;
+	border: 3px solid white;
+	background-color: lightgoldenrodyellow;
+	font-size: 1.3rem;
+	cursor: pointer;
+	transition-property: border-color;
+	transition-duration: 1s;
+	
+}
+
+.Cody-User-Panel-Img > i {
+
+	opacity: 0;
+	transition-property: color, opacity;
+	transition-duration: 500ms;
+	position: absolute;
+	background-color: white;
+	padding: 0.4rem;
+	border-radius: 5px;
+
+}
+
+.Cody-User-Panel-Img:hover > i {
+
+	opacity: 1;
+
+}
+
+.Cody-User-Panel-Img-Profile-Active {
+
+	opacity: 1;
+
+}
+
+.Cody-User-Options {
+
+	font-size: 1.5rem;
+	color: lightgreen;
+	padding: 1rem;
+	padding-bottom: 0.5rem;
+
+}
+
+.Cody-User-Options-Icon {
+
+	margin-right: 0.7rem;
+	cursor: pointer;
+	color: lightgreen;
+	transition: color 0.5s;	
+	position: relative;
+
+}
+
+.Cody-User-Options-Number {
+
+	position: absolute;
+	bottom: -10px;
+	font-size: 0.9rem;
+	right: -6px;
+	background-color: lightgreen;
+	padding: 0.2rem;
+	border-radius: 5px;
+	color: white;
+
+}
+
+.Cody-User-Options-Active {
+
+	color: darkgreen !important;
+
+}
+
+.Cody-User-Options > i:hover {
+
+	color: darkgreen;
+
+}
+
+.Cody-Icon {
+
+	text-align: center;
+	padding: 0.5rem;
+	background-color: lightgreen;
+	color: white;
+	font-weight: bold;
+	cursor: default;
+
+}
+
+ /*    CODY PROFILE CSS    */
+
+.Cody {
+
+	position: relative;
+
+}
+
+.Cody-Chat-Area {
+
+	position: relative;
+
+}
+
+.Cody-Profile {
+
+	padding: 2rem;
+	position: absolute;
+	top: 0px;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	background-color: rgba(255, 255, 255, 0.90);
+
+
+
+}
+
+.Cody-Profile-Navigation {
+
+	align-items: center;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	margin-bottom: 2rem;
+
+}
+
+.Cody-Profile-Navigation > div {
+
+	padding: 0.5rem;
+	background-color: lightgreen;
+	color: white;
+	cursor: pointer;
+
+
+}
+
+.Cody-User-Panel-Img-Online {
+
+	position: relative;
+	border-color: lightgreen;
+	color: lightgreen;
+
+}
+
+.Cody-User-Panel-Img-Offline {
+
+	position: relative;
+	border-color: lightgrey;
+	color: lightgrey;
+
+}
+
+.Cody-User-Panel-Img > input {
+
+	display: none;
+	position: absolute;
+	z-index: 1;
+	cursor: pointer;
+	border-radius: 50%;
+
+
+}
+
+.Cody-Image-User-Container-Form {
+
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+
+}
+
+.Cody-Image-User-Container-Form > input {
+
+	margin-top: 0.5rem;
+	background-color: white;
+	border-width: 1px;
+	padding: 0.25rem;
+	color: black;
+	border-radius: 5px;
+	cursor: pointer;
+
+}
+
+.Cody-Profile-Info {
+
+	font-size: 0.8rem;
+	text-align: center;
+	padding: 1rem;
+
+}
+
+.Image-Form-Upload-Error {
+
+	text-align: center;
+	padding:0.5rem;
+	font-size: 0.8rem;
+	color: red;
+
+}
+
+.joined {
+
+	padding: 0.5rem;
+	color: darkgreen;
+	margin-bottom: 0.5rem;
+	transition: opacity 0.2s;
+
+}
+
+.Change-Info-Form {
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-bottom: 1rem;
+	color: darkgreen;
+
+}
+
+.Change-Info-Form-Submit {
+
+	margin-top: 0.5rem;
+	background-color: white;
+	border-width: 1px;
+	padding: 0.25rem;
+	color: black;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 0.7rem;
+
+}
+
+
+.Change-Info-Form-Input {
+
+	text-align: center;
+	border-radius: 5px;
+	border-width: 1px;
+	padding: 0.2rem;
+	transition: opacity 0.2s;
+
+}
+
+/* 
+
+ BLOCKED USERS
+
+*/
+
+.Cody-Profile-Other {
+
+	
+
+
+}
+
+.Cody-Profile-Other-Navigation {
+
+	font-size: 0.9rem;
+	display: flex;
+
+
+}
+
+.Cody-Profile-Other-Navigation > div {
+
+	padding: 0.5rem;
+	color: white;
+	font-weight: 500;
+
+}
+
+.Blocked-Users-Container {
+
+	text-align: center;
+	overflow: auto;
+	padding: 1rem;
+	height: 200px;
+	width: 150px;
+	font-size: 0.8rem;
+
+}
+
+.Blocked-User {
+
+	margin-bottom: 1rem;
+	display: flex;
+	flex-direction: row;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+
+}
+
+.More-Blocked-Users {
+
+	cursor: pointer;
+	color: red;
+
+}
+
+.Blocked-User > i {
+
+	margin-left: 0.5rem;
+	color: green;
+	cursor: pointer;
+
+}
+
+.Blocked-Users-Title {
+
+	color: darkred;
+	font-size: 0.9rem;
+	font-weight: 600;
+	margin-bottom: 1rem;
+
+}
+
+.Blocked-Users-Container::-webkit-scrollbar {
+
+	width: 0.3rem;
+	background-color: white;
+
+}
+
+.Blocked-Users-Container::-webkit-scrollbar-thumb {
+
+	 background-color: darkred;
+
+}
+
+@media only screen and (max-width: 750px) {
+
+
+  /*    SIDEBAR CSS    */
+
+}
+
+@media only screen and (max-width: 761px)  {
+
+	.Cody {
+
+		grid-template-columns: 1fr;
+
+
+	}
+
+	.Cody-Chat-Area {
+
+		display: none;
+
+	}
+
+}
