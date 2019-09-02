@@ -3,7 +3,7 @@ Real-time chat application. Node.js/React.js/Socket.io/Redux.js
 
 - Registration/Login/Sessions
 - Search Users
-- Real-time Adding Users
+- Real-time friend requests
 - Blocking users/Deblocking users
 - User profile with profile picture
 - Online/Offline Users
