@@ -100,7 +100,7 @@ const userEditModel: userEditTypes = {
 	return knex('userBlockList').where('userBlockList.user', '=', user1).andWhere('userBlockList.blocks', '=', user2).del();
 
 
-
+ 
     }
 
 };

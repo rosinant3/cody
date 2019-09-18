@@ -44,7 +44,6 @@ const CodySidebar2: React.FC<CodyProps> = (props) => {
   const [imageState, setImageState] = useState(true);
   const [sideBar, setSideBar] = useState({ position: "Chats" });
   const [requests, setRequests] = useState({ requests: [] });
-  const [loginState, setLoginState] = useState(false);
 
   const data = props.contactsData;
   const page_requests = data.page_requests;
@@ -60,7 +59,7 @@ const CodySidebar2: React.FC<CodyProps> = (props) => {
   const profile_picture = props.user.profile_picture;
   props.codyState.profile? color = { opacity: 1 } : color = { color: "" };
   let loginClass: string = "";
-  loginState? loginClass = "Cody-User-Panel-Img Cody-User-Panel-Img-Online" : loginClass = "Cody-User-Panel-Img Cody-User-Panel-Img-Offline";
+  props.user.status? loginClass = "Cody-User-Panel-Img Cody-User-Panel-Img-Online" : loginClass = "Cody-User-Panel-Img Cody-User-Panel-Img-Offline";
 
   useEffect(() => {
 
@@ -76,7 +75,7 @@ const CodySidebar2: React.FC<CodyProps> = (props) => {
 
 
 		SocketRequests2(body_requests, props.dispatch, props.user.socket);
-		login_status(setLoginState, props.user.socket);
+		login_status(props.dispatch, props.user.socket);
 
 	}
 

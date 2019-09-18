@@ -20,7 +20,6 @@ const ChatEmit = (body_requests: { user: number; per_page: number; current_page:
 
 const ChatOn = (dispatch: any, socket: any, user: number) => {
 
- 
 	socket.on('recieve-chats', (data: any) =>{
 
 		const new_data = data.data.map((wata: any) => {
@@ -29,21 +28,18 @@ const ChatOn = (dispatch: any, socket: any, user: number) => {
 			return wata;
 
 		})
-console.log(new_data);
+		
 		dispatch({ type: 'add_chats', data: new_data, page: data.page, ajax: true, socket: false});
 
 	});
 
 	socket.on('recieve-chat', (data: any) =>{
 
-		const new_data = data.data.map((wata: any) => {
+		const new_data = data.data;
 
-			wata.active = true;
-			return wata;
-
-		})
-
-		dispatch({ type: 'active_chat', user: user,  contact: Math.abs(data.chat_id - user) });
+		dispatch({ type: 'add_chat_msg', chat_id: data.chat_id, origin: false, data: new_data });
+console.log(data);
+		//dispatch({ type: 'active_chat', user: user,  contact: Math.abs(data.chat_id - user) });
 		//dispatch({ type: 'add_chat_msg', data: new_data, page: data.page, ajax: true, socket: data.single });
 		
 	});
@@ -68,7 +64,7 @@ const Chats: React.FC<ChatsProps> = (props) => {
 	const last_page = page.last_page;
 	let spinner;
   	waiting? spinner = <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div> : spinner = <div></div>;
-	
+
 	useEffect(() => {
 
 		if (current_page > 1 && (total <= per_page || data_len < total)) {
@@ -85,7 +81,8 @@ const Chats: React.FC<ChatsProps> = (props) => {
 
 							user: props.user.id,
 							per_page: per_page,
-							current_page: current_page
+							current_page: current_page,
+							whereNot: props.chatData.whereNot
 			
 							};
 			
@@ -119,7 +116,8 @@ const Chats: React.FC<ChatsProps> = (props) => {
 
 				user: props.user.id,
 				per_page: per_page,
-				current_page: current_page
+				current_page: current_page,
+				whereNot: props.chatData.whereNot
 
         		};
 
@@ -129,7 +127,7 @@ const Chats: React.FC<ChatsProps> = (props) => {
 
 		}
 
-  }, [props.user.id, props.user.socket]);
+  }, [props.user.id, props.user.socket, props.user.status]);
 
   if (page.ajax === true && page.total > 0) {
 

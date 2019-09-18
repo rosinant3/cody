@@ -7,25 +7,28 @@ const login_user = (id: number, username: string, socket: any, dispatch: any) =>
 		socket.emit('login', { user: id, username: username });
 		socket.off('recieve-contacts-offline');
 		socket.off('recieve-contacts-online');
+		socket.off('recieve-chats');
+		socket.off('recieve-chat');
+		socket.off('recieve-message');
 		dispatch({ type: 'reset_both' });
 		dispatch({ type: 'reset_chats' });
-
+ 
 	});
 
 };
-
+ 
 const login_status = (changeStatus: any, socket: any) => {
 
 	socket.on('login', (data: { login: boolean }) => {
 
-		if (data.login) { changeStatus(true); }
+		if (data.login) { changeStatus({ type: "change_status", status: true }); }
 		
 
 	});
 
 	socket.on('disconnect', ()=>{
 
-		changeStatus(false);
+		changeStatus({ type: "change_status", status: false });
 
 	});
 

@@ -13,6 +13,34 @@ const ChatHead = styled.div`
     padding-bottom: 1rem;
     font-size: 1.2rem;
     font-weight: bold;
+    border-bottom-style: solid;
+    border-bottom-color: lightgreen;
+    border-width: 3px;
+
+
+`;
+
+const UsernameContainer = styled.div`
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+`;
+
+const Username = styled.span`
+
+    cursor: pointer;
+    opacity: 1;
+    transition-property: opacity;
+    transition-duration: 500ms;
+
+    &:hover {
+
+        opacity: 0.5;
+
+    }
+
 
 `;
 
@@ -35,9 +63,11 @@ interface ChatHeaderProps {
 const ChatHeader: React.FC<ChatHeaderProps> = (props) => {
 
     const username = props.user.username;
-console.log("Head");
+
   return (<ChatHead>
-     <span style={{cursor: "pointer"}}>{username}</span>
+      <UsernameContainer>
+      <Username>{username}</Username>
+      </UsernameContainer>
 	  </ChatHead>);
 }
 

@@ -46,23 +46,36 @@ const Contact2: React.FC<ContactProps> = (props) => {
 	if (props.chat) {
 
 		let contact_date: any = "";
-		const msgArray = [];
-	
+		const messages = props.contact.messages;
+		const arrayKeys = 0;
+		const messagesKeys = Object.keys(messages);
 		let msg: string = "";
-		if (msgArray.length > 0) {
 
-			msg = "We have a msg."; 
+
+		if (messagesKeys.length > 0) {
+
+			const day = messages[messagesKeys[0]];
+			const hourKeys = Object.keys(day);
+
+			if (hourKeys.length > 0) {
+
+				const hour = day[hourKeys[0]];
+
+				msg = hour[0].msg; 
+				contact_date = moment(new Date(hour[0].created_at)).format("MMM Do YY");
+
+			}
 			
 
-		} 
-		
-		if (msgArray.length === 0) {
+		}
+
+		if (messagesKeys.length === 0) {
 
 			msg = `Write ${username} a message...`;
 			contact_date = moment(new Date(props.contact.created_at)).format("MMM Do YY");
 
 		}
-		if (msg.length > 31) { msg = `${msg.slice(0, 31)}...` }
+		if (msg.length > 31) { msg = `${msg.slice(0, 20)}...` }
 		containerClass = "Cody-Image-Chat-Container";
 		content = <div className="Cody-Sidebar-Chats">
 					<div className="Cody-Search-Chats-Username">{username}</div>
@@ -127,7 +140,7 @@ const Contact2: React.FC<ContactProps> = (props) => {
 	
 		}
 
-	}, [[props.chat, props.chatData, props.contactsData]])
+	}, [props.chat, props.chatData, props.contactsData])
 
 	if (props.contact.active) {
 

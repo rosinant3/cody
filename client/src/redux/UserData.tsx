@@ -11,6 +11,7 @@ interface userDataTypes {
 	created_at: string;
 	set: boolean;
 	socket: any;
+	status: boolean;
 
 }
 
@@ -19,6 +20,7 @@ interface userDataActionTypes {
 	type: string;
 	data: userDataTypes;
 	socket?: any;
+	status: boolean;
 
 }
 
@@ -34,7 +36,8 @@ const userData: userDataTypes = {
 	location: "",
 	created_at: "",
 	set: false,
-	socket: false
+	socket: false, 
+	status: false
 
 
 };
@@ -42,6 +45,8 @@ const userData: userDataTypes = {
 const userDataReducer = (state: userDataTypes = userData, action: userDataActionTypes) => {
 
     switch (action.type) {
+	case 'change_status':
+	return { ...state, status: action.status };
     case 'socket':
     return { ...state, socket: action.socket };
     case 'change_picture':

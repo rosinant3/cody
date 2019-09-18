@@ -12,7 +12,7 @@ exports.up = function (knex) {
       t.integer('user').unsigned().collate('utf8_unicode_ci').notNullable();
       t.timestamps(false, true);
       t.foreign('user').references('id').inTable('user'); 
-    })
+    }) 
   }
   exports.down = function (knex) {
     return knex.schema.dropTableIfExists('userChat');

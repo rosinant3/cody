@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
 
 // COMPONENTS
 
@@ -9,6 +10,16 @@ import ChatForm from './ChatForm';
 
 
 // COMPONENTS
+
+// REDUX
+
+const mapStateToProps = (state: any) => {
+
+	return {  };
+
+};
+
+// REDUX
 
 // CHAT API Login
 
@@ -34,20 +45,31 @@ const ChatWindowCom = styled.div`
 const ChatGrid = styled.div`
 
 	display: grid;
-	grid-template-rows: 100px auto 100px;
+	grid-template-rows: 75px auto 100px;
+	height: 100%;
 
 `;
 
+const OnlineOn = (dispatch: any, socket: any) => {
+
+	socket.on('recieve-message', (data: any) => {
+  
+	  dispatch({ type: 'add_chat_msg', chat_id: data.chat_id, origin: data.origin, data: [data.message] });
+  
+	});
+  
+};
 
 interface ChatWindowProps {
 
-	user: { id: number, username: string; };
+	user: { id: number, username: string; socket: any; };
 	chatData: any;
+	dispatch: any;
+	
 
 }
 
-
-const ChatWindow: React.FC<ChatWindowProps> = (props) => {
+const ChatWindow2: React.FC<ChatWindowProps> = (props) => {
  
   const [active, setActive] = useState(false);
   const activeChat = props.chatData.chats.filter((c: any)=>{
@@ -55,6 +77,16 @@ const ChatWindow: React.FC<ChatWindowProps> = (props) => {
 	return c.active === true;
 
   });
+
+  useEffect(()=>{
+	
+	if (props.user.socket) {
+
+		OnlineOn(props.dispatch, props.user.socket);
+	
+	}
+
+ }, [props.user.socket, props.dispatch]);
 
   /*
 
@@ -67,13 +99,13 @@ status: "0"
 username: "user-15"
 
   */
- console.log(activeChat);
+
   let content = <WelcomeScreen>{`Welcome, ${props.user.username}!`}</WelcomeScreen>;
   if (activeChat.length === 1) {
 	  
 	content = activeChat.map((ch: any) => {
 
-		const user: { 
+		const contact: { 
 			
 			username: string;
 			first_name: string;
@@ -95,11 +127,14 @@ username: "user-15"
 		};
 
 		const messages = ch.messages;
+		const form = ch.form;
+		const chat_id = ch.chat_id;
+		const page = ch.page;
 
-		return (<ChatGrid key={user.id}>
-				<ChatHeader user={user}/>
-				<ChatMsg messages={messages} />
-				<ChatForm />
+		return (<ChatGrid key={contact.id}>
+				<ChatHeader user={contact}/>
+				<ChatMsg user={props.user} page={page} chat_id={chat_id} dispatch={props.dispatch} messages={messages} />
+				<ChatForm user={props.user} contact={contact} chat_id={chat_id} dispatch={props.dispatch} form={form}/>
 				</ChatGrid>);
 
 
@@ -111,5 +146,7 @@ username: "user-15"
 	  {content}
 	  </ChatWindowCom>);
 }
+
+const ChatWindow = connect(mapStateToProps)(ChatWindow2);
 
 export default ChatWindow;

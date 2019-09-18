@@ -257,7 +257,7 @@ const CodyProfileInfo: React.FC<CodyProfileInfoProps> = (props) => {
 			<div className="Image-Form-Upload-Error">{errorState.msg}</div>
 		<div className="Cody-Profile-Info">
 			<div>{props.user.email}</div>
-			{infoKeys.map((key) => {return <UserInfoEditor user={props.user} id={props.user.id} key={key} input={key}dispatchUserState={props.dispatchUserState}/>})}
+			{infoKeys.map((key) => {return <UserInfoEditor user={props.user} id={props.user.id} key={key} input={key} dispatchUserState={props.dispatchUserState}/>})}
 
 		</div>
 	  </div>);

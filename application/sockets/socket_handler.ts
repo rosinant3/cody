@@ -5,6 +5,12 @@ import { chatsSocketHandler } from './contacts/chats-socket-handler';
 
 const socketHandler = (socket: any) => {
 
+  socket.on('send-message', (data: { username: string; chat_id: number; user: number; contact: number; message: string; images: string[]; files: string[] })=>{
+
+		chatsSocketHandler.sendMessage(data, socket);
+
+  });
+
   socket.on('get-contact-requests', (data: { user: number; per_page: number; current_page: number; corrector?: number }) => {
 
 	contactsSocketHandler.getContactRequests(data, socket);
@@ -23,7 +29,7 @@ const socketHandler = (socket: any) => {
 
   });
 
-  socket.on('get-chats', (data: { user: number; per_page: number; current_page: number; corrector?: number }) => {
+  socket.on('get-chats', (data: { whereNot: number[], user: number; per_page: number; current_page: number; corrector?: number }) => {
 
 	chatsSocketHandler.getChats(data, socket);
 
@@ -103,7 +109,7 @@ const socketHandler = (socket: any) => {
   });
 
   socket.on('disconnect', function(data: any) {
-  
+
 	if (users[socket.user.id].length === 1) {
 
 	const logout = contactsSocketHandler.userStatus(socket.user.id, false);
@@ -151,7 +157,9 @@ const socketHandler = (socket: any) => {
 
     }
  
-   });
+   }
+
+);
 
 };
 

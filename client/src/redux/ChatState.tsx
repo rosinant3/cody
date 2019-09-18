@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 interface ch_page {
 
 	current_page: number; 
@@ -27,6 +29,7 @@ interface ch_data {
 	msg?: any;
 	created_at?: any;
 	created_At?: any;
+	form: { message: string; images: string[], files: string[] };
 
 }
 
@@ -35,6 +38,7 @@ interface chatsTypes {
 	page_chats: ch_page;
 	chats: Array<ch_data>;
 	whereNot: any;
+	
 
 }
 
@@ -52,15 +56,41 @@ interface chatsActionTypes {
 	contact?: any;
 	whereNot?: boolean;
 
+	form: { message: string; images: string; files: string; type: string };
+	chat_id: number;
+	single?: boolean;
+	origin?: boolean;
+
 }
 
 const chats: chatsTypes = {
 
 	whereNot: [],
 	page_chats: { current_page: 1, from: 0, last_page: 0, offset: 0, per_page: 10, to: 0, total: 0, ajax: false, corrector: 0 },
-	chats: [{ page: 
-		{ current_page: 1, from: 0, last_page: 0, offset: 0, per_page: 10, to: 0, total: 0, ajax: false, corrector: 0 }
-		, messages: [], created_at: "", chat_id: 0, username: "", id: 0, first_name: "", last_name: "", location: "", status: "0", active: false }],
+	chats: [{ page: { 
+		
+					current_page: 1, 
+					from: 0, 
+					last_page: 0, 
+					offset: 0, 
+					per_page: 10, 
+					to: 0, 
+					total: 0, 
+					ajax: false, 
+					corrector: 0 
+				}, 
+				messages: {}, 
+				created_at: "", 
+				chat_id: 0, 
+				username: "", 
+				id: 0, 
+				first_name: "", 
+				last_name: "", 
+				location: "", 
+				status: "0", 
+				active: false,
+				form: { message: "", images: [], files: [] }
+			}],
 	
 
 };
@@ -70,7 +100,119 @@ const chatsReducer = (state: chatsTypes = chats, action: chatsActionTypes) => {
     switch (action.type) {
 	case 'add_chat_msg':
 
-	return { ...state };
+		let new_chat_msg: any;
+		const message2 = action.data;
+
+		new_chat_msg = state.chats.map((chat:any)=>{
+
+			if (action.chat_id === chat.chat_id) {
+
+				const page_msg = { ...chat.page, corrector: chat.page.corrector + 1 };
+				let form = { ...chat.form };
+				let messages = chat.messages;
+
+				if (action.origin) {
+
+					form = { message: "", images: [], files: [] };
+
+				}
+
+			message2.forEach((message)=>{
+
+				const day = moment(new Date(message.created_at)).format("dddd, MMM Do YY");
+				const hour = moment(new Date(message.created_at)).format("hh:mm a").toUpperCase();
+				//const day = message.created_at;
+   				//const hour = message.created_at;
+
+   				if (messages[day]) {
+
+      				if (messages[day][hour]) {
+
+         			messages[day][hour].unshift(message);
+
+      			} else {
+
+         			messages[day][hour] = [];
+					messages[day][hour].unshift(message);
+
+
+      			}
+
+   				} else {
+
+      				messages[day] = {};
+
+      				if (messages[day][hour]) {
+
+         				messages[day][hour].unshift(message);
+
+      				} else {
+
+						 messages[day][hour] = [];
+						 
+						 messages[day][hour].unshift(message);
+						
+
+      				}
+
+				   }
+				   
+			});
+
+				return { ...chat, page: page_msg, form: form, messages: messages  };
+
+			} else {
+
+				return chat;
+
+			}
+
+		});
+
+		const sorted_chat_msg = new_chat_msg.sort((a: any, b: any) => {
+
+			let b_created_at: any = b.created_at;
+			let a_created_at: any = a.created_at;
+
+			if (b.messages[0]) {
+
+				b_created_at = b.messages[0].created_at;
+
+
+			}
+
+			if (a.messages[0]) {
+
+				a_created_at = a.messages[0].created_at;
+
+			}
+
+			return +new Date(b_created_at) - +new Date(a_created_at);
+
+	  	});
+
+	return { ...state, chats: sorted_chat_msg };
+	case 'add_form':
+
+		const form_chats = state.chats.map((m: any)=>{
+
+			if (action.chat_id === m.chat_id) {
+
+				if (action.form.type === "message") {
+
+					return { ...m, form: { ...m.form, message: action.form.message} }
+
+				}
+
+			} else {
+
+				return m;
+
+			}
+
+		});
+
+	return { ...state, chats: form_chats };
 	case 'change_user_status_chat':
 
 		let status: any = "0";
@@ -96,10 +238,45 @@ const chatsReducer = (state: chatsTypes = chats, action: chatsActionTypes) => {
 	return { ...state, page_chats: { ...state.page_chats, ajax: action.ajax } };
 	case 'reset_chats':
 
-	return { page_chats: { current_page: 1, from: 0, last_page: 0, offset: 0, per_page: 10, to: 0, total: 0, ajax: false, corrector: 0 },
-	chats: [{ page: 
-		{ current_page: 1, from: 0, last_page: 0, offset: 0, per_page: 10, to: 0, total: 0, ajax: false, corrector: 0 }
-		, messages: [], chat_id: 0, created_at: "", username: "", id: 0, first_name: "", last_name: "", location: "", status: "0", active: false }],
+	return { page_chats: { 
+		
+					current_page: 1, 
+					from: 0, 
+					last_page: 0, 
+					offset: 0, 
+					per_page: 10, 
+					to: 0, 
+					total: 0, 
+					ajax: false, 
+					corrector: 0 
+				},
+	chats: [{ page: { 
+		
+						current_page: 1, 
+						from: 0, 
+						last_page: 0, 
+						offset: 0, 
+						per_page: 10, 
+						to: 0, 
+						total: 0, 
+						ajax: false, 
+						corrector: 0 
+					}, 
+					
+					messages: [], 
+					chat_id: 0, 
+					created_at: "", 
+					username: "", 
+					id: 0, 
+					first_name: "", 
+					last_name: "", 
+					location: "", 
+					status: "0", 
+					active: false,
+					form: { message: "", images: [], files: [] }
+				
+				}],
+	whereNot: []
 	};
 	case 'active_chat':
 
@@ -235,8 +412,7 @@ const chatsReducer = (state: chatsTypes = chats, action: chatsActionTypes) => {
 		let page_chats_socket: any = { 
 			
 			...state.page_chats, 
-			total: state.page_chats.total + 1, 
-			corrector: state.page_chats.corrector + 1 
+			total: state.page_chats.total + 1
 		
 		};
 			
@@ -253,19 +429,68 @@ const chatsReducer = (state: chatsTypes = chats, action: chatsActionTypes) => {
 	
 		}
 	
-		action.data.forEach((dat) => {
+		action.data.forEach((dat: any) => {
 
-			let msg = [];
+			let messages: any = {};
+
 			if (dat.msg) {
 
-				msg.push({ msg: dat.msg, created_at: dat.created_at });
+			const message: any = { id: dat.msg_id, user: dat.user, seen: dat.seen, msg: dat.msg, created_at: dat.created_at }
 
+			const day = moment(new Date(message.created_at)).format("dddd, MMM Do YY");
+			const hour = moment(new Date(message.created_at)).format("hh:mm a").toUpperCase();
+			
+			//const day = message.created_at;
+   			//const hour = message.created_at;
+
+   				if (messages[day]) {
+
+      				if (messages[day][hour]) {
+
+					 messages[day][hour].push(message);
+					 
+
+      			} else {
+
+         			messages[day][hour] = [];
+         			messages[day][hour].push(message);
+
+      			}
+
+   				} else {
+
+      				messages[day] = {};
+
+      				if (messages[day][hour]) {
+
+         				messages[day][hour].push(message);
+
+      				} else {
+
+         				messages[day][hour] = [];
+         				messages[day][hour].push(message);
+
+      				}
+
+				}
+				   
 			}
 
-			const prepared_chat = {
+			const prepared_chat: ch_data = {
 
-				page: { current_page: 1, from: 0, last_page: 0, offset: 0, per_page: 10, to: 0, total: 0, ajax: false, corrector: 0 },
-				messages: msg,
+				page: { 
+					
+						current_page: 1, 
+						from: 0, 
+						last_page: 0, 
+						offset: 0, 
+						per_page: 10, 
+						to: 0, 
+						total: 0, 
+						ajax: false, 
+						corrector: 1
+				},
+				messages: messages,
 				active: dat.active,
 				chat_id: dat.chat_id,
 				id: dat.id,
@@ -275,6 +500,7 @@ const chatsReducer = (state: chatsTypes = chats, action: chatsActionTypes) => {
 				last_name: "",
 				location: "",
 				created_at: dat.created_At,
+				form: { message: "", images: [], files: [] }
 
 			};
 	
@@ -307,7 +533,7 @@ const chatsReducer = (state: chatsTypes = chats, action: chatsActionTypes) => {
 		let page_chats_socket: any = { 
 			
 			...action.page,
-			current_page: action.page.current_page + 1, 
+			current_page: action.page.current_page + 1,
 			ajax: true
 		
 		};

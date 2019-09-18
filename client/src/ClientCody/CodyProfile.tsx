@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './Cody.css';
 
 // COMPONENTS
@@ -17,6 +17,7 @@ interface CodyProfileProps {
 const CodyProfile: React.FC<CodyProfileProps> = (props) => {
 
   const [profileState, changeProfileState] = useState({ position: "account" });
+  const container: any = useRef(null);
   let profile;
   let account = { backgroundColor: "lightgreen"};
   let av = { backgroundColor: "lightgreen"};
@@ -31,7 +32,7 @@ const CodyProfile: React.FC<CodyProfileProps> = (props) => {
   profileState.position === "audioVideo"? av = { backgroundColor: "darkgreen" } : counter++;
   profileState.position === "other"? o = { backgroundColor: "darkgreen" } : counter++;
 
-  return (<div style={props.visible} className="Cody-Profile">
+  return (<div ref={container} style={props.visible} className="Cody-Profile">
 	  <nav className="Cody-Profile-Navigation">
 		<div style={account} onClick={ () => { changeProfileState({ position: "account" }); } }>Account</div>
 		<div style={av} onClick={ () => { changeProfileState({ position: "audioVideo" }); } }>Audio & Video</div>

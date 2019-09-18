@@ -13,7 +13,7 @@ exports.up = function (knex) {
       t.timestamps(false, true);
       t.foreign('user').references('id').inTable('user');
     })
-  }
+  }       
   exports.down = function (knex) {
     return knex.schema.dropTableIfExists('userStatus')
   }
