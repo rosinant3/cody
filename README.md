@@ -7,14 +7,13 @@ Real-time chat application. Node.js/React.js/Socket.io/Redux.js
 - Blocking users/Deblocking users
 - User profile with profile picture
 - Online/Offline Users
-- Latest Chats
+- Latest Chats List
 - React Hooks
+- Real-time Chat
 
 1.
 
 ![Cody](https://i.imgur.com/JDWG8s2.png)
-
-(Chat about to be implemented. Since I've done most of the actions that can be done with sockets, the tasks ahead started to feel mundane and repetitive. That's why I've decided to take a short break from this project.)
 
 2.
 
