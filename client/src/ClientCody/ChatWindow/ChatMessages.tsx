@@ -112,33 +112,36 @@ const ChatMsg: React.FC<ChatHeaderProps> = (props) => {
 
    const dates: any = props.messages;
 
-  const dates_keys = [];
+  const days_keys = Object.keys(dates);
 
-  for (let key in dates) {
+  const sorted_days = days_keys.sort((a: any, b: any) => {
 
-   dates_keys.unshift(key);
+            const hour_keys_a = Object.keys(dates[a]);
+            const hour_keys_b = Object.keys(dates[b]);
 
-  }
+         return +new Date(dates[a][hour_keys_a[0]].date) - +new Date(dates[b][hour_keys_b[0]].date);
+
+   });
 
   return (<ChatMessages>
-      {dates_keys.map((day:any)=>{
+      {sorted_days.map((day:any)=>{
 
-         const hour_keys = [];
+         const hour_keys = Object.keys(dates[day]);
 
-         for (let key in dates[day]) {
+         const sorted_hours = hour_keys.sort((a: any, b: any) => {
 
-            hour_keys.unshift(key);
-
-         }
+               return +new Date(dates[day][a].date) - +new Date(dates[day][b].date);
+   
+         });
 
          return <DayWrapper key={day}>
             <div style={{ textAlign: "center" }}>{day}</div>
-            {hour_keys.map((hour:any)=>{
+            {sorted_hours.map((hour:any)=>{
 
                let user: any = [];
                let contact: any = [];
                      
-               dates[day][hour].forEach((msg: any)=>{
+               dates[day][hour].messages.forEach((msg: any)=>{
 
                   if (msg.user === props.user.id) {
 

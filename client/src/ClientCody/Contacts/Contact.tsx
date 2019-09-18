@@ -61,8 +61,8 @@ const Contact2: React.FC<ContactProps> = (props) => {
 
 				const hour = day[hourKeys[0]];
 
-				msg = hour[0].msg; 
-				contact_date = moment(new Date(hour[0].created_at)).format("MMM Do YY");
+				msg = hour.messages[0].msg; 
+				contact_date = moment(new Date(hour.messages[0].created_at)).format("MMM Do YY");
 
 			}
 			

@@ -128,12 +128,12 @@ const chatsReducer = (state: chatsTypes = chats, action: chatsActionTypes) => {
 
       				if (messages[day][hour]) {
 
-         			messages[day][hour].unshift(message);
+         			messages[day][hour].messages.unshift(message);
 
       			} else {
 
-         			messages[day][hour] = [];
-					messages[day][hour].unshift(message);
+         			messages[day][hour] = { date: message.created_at, messages: [] };
+					messages[day][hour].messages.unshift(message);
 
 
       			}
@@ -144,13 +144,12 @@ const chatsReducer = (state: chatsTypes = chats, action: chatsActionTypes) => {
 
       				if (messages[day][hour]) {
 
-         				messages[day][hour].unshift(message);
+         				messages[day][hour].messages.unshift(message);
 
       				} else {
 
-						 messages[day][hour] = [];
-						 
-						 messages[day][hour].unshift(message);
+						 messages[day][hour] = { date: message.created_at, messages: [] };;
+						 messages[day][hour].messages.unshift(message);
 						
 
       				}
@@ -447,13 +446,13 @@ const chatsReducer = (state: chatsTypes = chats, action: chatsActionTypes) => {
 
       				if (messages[day][hour]) {
 
-					 messages[day][hour].push(message);
+					 messages[day][hour].messages.push(message);
 					 
 
       			} else {
 
-         			messages[day][hour] = [];
-         			messages[day][hour].push(message);
+         			messages[day][hour] = { date: message.created_at, messages: [] };
+         			messages[day][hour].messages.push(message);
 
       			}
 
@@ -463,12 +462,12 @@ const chatsReducer = (state: chatsTypes = chats, action: chatsActionTypes) => {
 
       				if (messages[day][hour]) {
 
-         				messages[day][hour].push(message);
+         				messages[day][hour].messages.push(message);
 
       				} else {
 
-         				messages[day][hour] = [];
-         				messages[day][hour].push(message);
+         				messages[day][hour] = { date: message.created_at, messages: [] };
+         				messages[day][hour].messages.push(message);
 
       				}
 
