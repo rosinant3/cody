@@ -17,16 +17,20 @@ Real-time chat application. Node.js/React.js/Socket.io/Redux.js
 
 2.
 
-![Cody](https://i.imgur.com/LumPoe3.jpg)
+![Cody](https://i.imgur.com/pFkiCpO.png)
 
 3.
 
-![Cody](https://i.imgur.com/r4ZQ0kH.jpg)
+![Cody](https://i.imgur.com/LumPoe3.jpg)
 
 4.
 
-![Cody](https://i.imgur.com/2L8wi3Z.jpg)
+![Cody](https://i.imgur.com/r4ZQ0kH.jpg)
 
 5.
+
+![Cody](https://i.imgur.com/2L8wi3Z.jpg)
+
+6.
 
 ![Cody](https://i.imgur.com/6fQ0tlO.png)
