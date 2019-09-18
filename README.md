@@ -17,7 +17,7 @@ Real-time chat application. Node.js/React.js/Socket.io/Redux.js
 
 2.
 
-![Cody](https://i.imgur.com/pFkiCpO.png)
+![Cody](https://i.imgur.com/zPQdDex.png)
 
 3.
 
