@@ -10,6 +10,7 @@ Real-time chat application. Node.js/React.js/Socket.io/Redux.js
 - Latest Chats List
 - React Hooks
 - Real-time Chat
+- Pagination
 
 1.
 
