@@ -1,5 +1,5 @@
 # cody
-Real-time chat application. Node.js/React.js/Socket.io/Redux.js
+Real-time chat application. Node.js/React.js/Redux.js/Socket.io/TypeScript
 
 - Registration/Login/Sessions
 - Search Users
@@ -9,8 +9,7 @@ Real-time chat application. Node.js/React.js/Socket.io/Redux.js
 - Online/Offline Users
 - Latest Chats List
 - React Hooks
-- Real-time Chat
-- Pagination
+- Real-time Chat Messeging
 
 1.
 
