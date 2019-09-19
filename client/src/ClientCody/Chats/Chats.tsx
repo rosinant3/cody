@@ -37,7 +37,7 @@ const ChatOn = (dispatch: any, socket: any, user: number) => {
 
 		const new_data = data.data;
 
-		dispatch({ type: 'add_chat_msg', page: data.page, chat_id: data.chat_id, origin: false, data: new_data });
+		dispatch({ type: 'add_chat_msg', scroll: 500, page: data.page, chat_id: data.chat_id, origin: false, data: new_data });
 
 		//dispatch({ type: 'active_chat', user: user,  contact: Math.abs(data.chat_id - user) });
 		//dispatch({ type: 'add_chat_msg', data: new_data, page: data.page, ajax: true, socket: data.single });
@@ -67,7 +67,7 @@ const Chats: React.FC<ChatsProps> = (props) => {
 
 	useEffect(() => {
 
-		if (current_page > 1 && (total <= per_page || data_len < total)) {
+		if (current_page > 1 && (total >= per_page || data_len < total)) {
 			
 				   let Rosi: any = new Rosinante({
 	
@@ -198,7 +198,6 @@ const Chats: React.FC<ChatsProps> = (props) => {
 			})
 
 	}
-
 
   return (<div ref={scrollContainer} className="Cody-Chats">
 		{chats}

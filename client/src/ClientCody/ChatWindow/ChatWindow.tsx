@@ -54,7 +54,7 @@ const OnlineOn = (dispatch: any, socket: any) => {
 
 	socket.on('recieve-message', (data: any) => {
   
-	  dispatch({ type: 'add_chat_msg', chat_id: data.chat_id, origin: data.origin, data: [data.message] });
+	  dispatch({ type: 'add_chat_msg', scroll: 0, chat_id: data.chat_id, origin: data.origin, data: [data.message] });
   
 	});
   
@@ -130,10 +130,11 @@ username: "user-15"
 		const form = ch.form;
 		const chat_id = ch.chat_id;
 		const page = ch.page;
+		const scroll = ch.scroll;
 
 		return (<ChatGrid key={contact.id}>
 				<ChatHeader user={contact}/>
-				<ChatMsg user={props.user} page={page} chat_id={chat_id} dispatch={props.dispatch} messages={messages} />
+				<ChatMsg scroll={scroll} user={props.user} page={page} chat_id={chat_id} dispatch={props.dispatch} messages={messages} />
 				<ChatForm user={props.user} contact={contact} chat_id={chat_id} dispatch={props.dispatch} form={form}/>
 				</ChatGrid>);
 

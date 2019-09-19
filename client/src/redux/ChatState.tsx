@@ -30,6 +30,7 @@ interface ch_data {
 	created_at?: any;
 	created_At?: any;
 	form: { message: string; images: string[], files: string[] };
+	scroll: number;
 
 }
 
@@ -60,6 +61,7 @@ interface chatsActionTypes {
 	chat_id: number;
 	single?: boolean;
 	origin?: boolean;
+	scroll?: number;
 
 }
 
@@ -89,7 +91,8 @@ const chats: chatsTypes = {
 				location: "", 
 				status: "0", 
 				active: false,
-				form: { message: "", images: [], files: [] }
+				form: { message: "", images: [], files: [] },
+				scroll: 0
 			}],
 	
 
@@ -107,7 +110,7 @@ const chatsReducer = (state: chatsTypes = chats, action: chatsActionTypes) => {
 
 			if (action.chat_id === chat.chat_id) {
 
-				let page_msg = { ...chat.page, corrector: chat.page.corrector + 1 };
+				let page_msg = { ...chat.page, corrector: chat.page.corrector + 1, total: chat.page.total };
 				let form = { ...chat.form };
 				let messages = chat.messages;
 
@@ -164,7 +167,7 @@ const chatsReducer = (state: chatsTypes = chats, action: chatsActionTypes) => {
 				   
 			});
 
-				return { ...chat, page: page_msg, form: form, messages: messages  };
+				return { ...chat, page: page_msg, form: form, messages: messages, scroll: action.scroll  };
 
 			} else {
 
@@ -257,7 +260,8 @@ const chatsReducer = (state: chatsTypes = chats, action: chatsActionTypes) => {
 					location: "", 
 					status: "0", 
 					active: false,
-					form: { message: "", images: [], files: [] }
+					form: { message: "", images: [], files: [] },
+					scroll: 0
 				
 				}],
 	whereNot: []
@@ -462,7 +466,8 @@ const chatsReducer = (state: chatsTypes = chats, action: chatsActionTypes) => {
 				last_name: "",
 				location: "",
 				created_at: dat.created_At,
-				form: { message: "", images: [], files: [] }
+				form: { message: "", images: [], files: [] },
+				scroll: 0
 
 			};
 	

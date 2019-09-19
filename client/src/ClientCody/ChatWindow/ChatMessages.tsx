@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
 
+import Rosinante from '../Rosinante';
+
 // CHAT API Login
 
 const ChatMessages = styled.div`
@@ -35,7 +37,7 @@ interface ChatHeaderProps {
     dispatch: any;
     page: any;
     chat_id: number;
-
+    scroll: number;
 
 }
 
@@ -59,7 +61,6 @@ const ChatMsg: React.FC<ChatHeaderProps> = (props) => {
                      });
                      
       }
-
 
    }, [props.chat_id]);
 
@@ -113,6 +114,82 @@ const ChatMsg: React.FC<ChatHeaderProps> = (props) => {
 
    `;
 
+   const [waiting, setWaiting] = useState(false);
+   const page = props.page;
+	const total = page.total;
+	const current_page = page.current_page;
+	const per_page = page.per_page;
+   const last_page = page.last_page;
+   let scrollContainer: any = useRef(null);
+   let scrollItem: any = useRef(null);
+     
+   let spinner;
+  	waiting? spinner = <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div> : spinner = <div></div>;
+
+   useEffect(()=>{
+  
+        if (ref.current && props.scroll === 0) {
+  
+              ref.current.scrollIntoView({ block: 'end' });
+  
+        }
+
+        if (scrollContainer.current && props.scroll > 0) {
+
+            scrollContainer.current.scrollTo(0, 500);
+
+        }
+  
+   });
+
+   useEffect(() => {
+
+		if (current_page > 1 && (total >= per_page)) {
+			
+				   let Rosi: any = new Rosinante({
+	
+					scrollContainer: scrollContainer.current, 
+					scrollItem: scrollItem.current, 
+					scrollTarget: scrollItem.current,
+					once: true,
+					visible: () => { 
+	
+						props.user.socket.emit('get-chat', 
+							{ 
+								per_page: props.page.per_page, 
+								current_page: props.page.current_page, 
+								chat_id: props.chat_id, 
+								corrector: props.page.corrector
+							
+                     });
+
+					}, 
+					notVisible: () => {
+
+                  
+
+					}, 
+					throttle: 400, 
+					responsiveBreakPoint: 800, 
+					elementPieceSmall: 500, 
+					elementPieceLarge: 500
+	
+				});
+				
+				if (current_page <= last_page) { Rosi.callRosinante()}
+	
+				return () => { 
+               
+               Rosi.removeRosinante(); 
+            
+            }
+	
+		 		}
+	
+	  }, [current_page, last_page, per_page, props.user.id, props.dispatch, setWaiting, total ]);
+
+
+     
   const dates: any = props.messages;
 
   const days_keys = Object.keys(dates);
@@ -126,17 +203,8 @@ const ChatMsg: React.FC<ChatHeaderProps> = (props) => {
 
    });
 
-   useEffect(()=>{
-
-      if (ref.current) {
-
-         ref.current.scrollIntoView({ block: 'end' });
-
-      }
-
-   });
-
-  return (<ChatMessages>
+  return (<ChatMessages ref={scrollContainer}>
+      <div ref={scrollItem} className="Scroll-Item-Container">{spinner}</div>
       {sorted_days.map((day:any)=>{
 
          const hour_keys = Object.keys(dates[day]);

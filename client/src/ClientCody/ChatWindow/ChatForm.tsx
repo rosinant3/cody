@@ -129,8 +129,6 @@ const OnlineEmit = (data: {
                     }, socket: any) => {
 
   socket.emit('send-message', data);
-  
-  
 
 };
 
