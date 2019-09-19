@@ -37,8 +37,8 @@ const ChatOn = (dispatch: any, socket: any, user: number) => {
 
 		const new_data = data.data;
 
-		dispatch({ type: 'add_chat_msg', chat_id: data.chat_id, origin: false, data: new_data });
-console.log(data);
+		dispatch({ type: 'add_chat_msg', page: data.page, chat_id: data.chat_id, origin: false, data: new_data });
+
 		//dispatch({ type: 'active_chat', user: user,  contact: Math.abs(data.chat_id - user) });
 		//dispatch({ type: 'add_chat_msg', data: new_data, page: data.page, ajax: true, socket: data.single });
 		
@@ -131,7 +131,67 @@ const Chats: React.FC<ChatsProps> = (props) => {
 
   if (page.ajax === true && page.total > 0) {
 
-	chats = chats_a.map((contact: any)=>{
+	const dates: any = chats_a.sort((a: any, b: any) =>{
+
+		const days_a = Object.keys(a.messages);
+		const days_b = Object.keys(b.messages);
+		let date_a: any = a.created_at;
+		let date_b: any = b.created_at;
+
+		const sorted_days_a = days_a.sort((c: any, d: any) => {
+  
+			const hour_keys_a = Object.keys(a.messages[d]);
+			const hour_keys_b = Object.keys(a.messages[c]);
+
+		 	return +new Date(a.messages[d][hour_keys_a[0]].date) - +new Date(a.messages[c][hour_keys_b[0]].date);
+
+		});
+		   
+		const sorted_days_b = days_b.sort((c: any, d: any) => {
+
+			const hour_keys_a = Object.keys(b.messages[d]);
+			const hour_keys_b = Object.keys(b.messages[c]);
+
+			return +new Date(b.messages[d][hour_keys_a[0]].date) - +new Date(b.messages[c][hour_keys_b[0]].date);
+
+		});
+		   
+
+		if (sorted_days_a[0]) {
+
+			const hour_keys_a = Object.keys(a.messages[sorted_days_a[0]]);
+
+			const sorted_hours_a = hour_keys_a.sort((c: any, d: any) => {
+
+				return +new Date(a.messages[sorted_days_a[0]][d].date) - +new Date(a.messages[sorted_days_a[0]][c].date);
+	
+			});
+
+			date_a = a.messages[sorted_days_a[0]][sorted_hours_a[0]].date;
+			  
+
+		}
+
+		if (sorted_days_b[0]) {
+
+			const hour_keys_b = Object.keys(b.messages[sorted_days_b[0]]);
+
+			const sorted_hours_b = hour_keys_b.sort((c: any, d: any) => {
+
+				return +new Date(b.messages[sorted_days_b[0]][d].date) - +new Date(b.messages[sorted_days_b[0]][c].date);
+				
+			});
+			
+			date_b = b.messages[sorted_days_b[0]][sorted_hours_b[0]].date;
+
+		}
+ 
+		return +new Date(date_b) - +new Date(date_a);
+
+
+	});
+
+	chats = dates.map((contact: any)=>{
  
 				return <Contact user={props.user} chat={true} key={contact.id} contact={contact} />;
 

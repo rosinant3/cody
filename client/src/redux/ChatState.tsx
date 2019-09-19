@@ -107,13 +107,19 @@ const chatsReducer = (state: chatsTypes = chats, action: chatsActionTypes) => {
 
 			if (action.chat_id === chat.chat_id) {
 
-				const page_msg = { ...chat.page, corrector: chat.page.corrector + 1 };
+				let page_msg = { ...chat.page, corrector: chat.page.corrector + 1 };
 				let form = { ...chat.form };
 				let messages = chat.messages;
 
 				if (action.origin) {
 
 					form = { message: "", images: [], files: [] };
+
+				}
+
+				if (action.page) {
+
+					page_msg = action.page;
 
 				}
 
@@ -168,29 +174,8 @@ const chatsReducer = (state: chatsTypes = chats, action: chatsActionTypes) => {
 
 		});
 
-		const sorted_chat_msg = new_chat_msg.sort((a: any, b: any) => {
 
-			let b_created_at: any = b.created_at;
-			let a_created_at: any = a.created_at;
-
-			if (b.messages[0]) {
-
-				b_created_at = b.messages[0].created_at;
-
-
-			}
-
-			if (a.messages[0]) {
-
-				a_created_at = a.messages[0].created_at;
-
-			}
-
-			return +new Date(b_created_at) - +new Date(a_created_at);
-
-	  	});
-
-	return { ...state, chats: sorted_chat_msg };
+	return { ...state, chats: new_chat_msg };
 	case 'add_form':
 
 		const form_chats = state.chats.map((m: any)=>{
@@ -386,28 +371,6 @@ const chatsReducer = (state: chatsTypes = chats, action: chatsActionTypes) => {
 	
 		}
 
-		const sorted_data_socket = chat_data_socket.sort((a: any, b: any) => {
-
-			let b_created_at: any = b.created_at;
-			let a_created_at: any = a.created_at;
-
-			if (b.messages[0]) {
-
-				b_created_at = b.messages[0].created_at;
-
-
-			}
-
-			if (a.messages[0]) {
-
-				a_created_at = a.messages[0].created_at;
-
-			}
-
-			return +new Date(b_created_at) - +new Date(a_created_at);
-
-	  	});
-
 		let page_chats_socket: any = { 
 			
 			...state.page_chats, 
@@ -415,7 +378,7 @@ const chatsReducer = (state: chatsTypes = chats, action: chatsActionTypes) => {
 		
 		};
 			
-		chats_state = { ...state, whereNot: whereNot, chats: sorted_data_socket, page_chats: page_chats_socket };
+		chats_state = { ...state, whereNot: whereNot, chats: chat_data_socket, page_chats: page_chats_socket };
 
 
 	} else {
@@ -507,28 +470,6 @@ const chatsReducer = (state: chatsTypes = chats, action: chatsActionTypes) => {
 	
 		});
 
-		const sorted_data_socket = chat_data_socket.sort((a: any, b: any) => {
-
-			let b_created_at: any = b.created_at;
-			let a_created_at: any = a.created_at;
-
-			if (b.messages[0]) {
-
-				b_created_at = b.messages[0].created_at;
-
-
-			}
-
-			if (a.messages[0]) {
-
-				a_created_at = a.messages[0].created_at;
-
-			}
-
-			return +new Date(b_created_at) - +new Date(a_created_at);
-
-	  	});
-
 		let page_chats_socket: any = { 
 			
 			...action.page,
@@ -537,13 +478,14 @@ const chatsReducer = (state: chatsTypes = chats, action: chatsActionTypes) => {
 		
 		};
 			
-		chats_state = { ...state, chats: sorted_data_socket, page_chats: page_chats_socket };
+		chats_state = { ...state, chats: chat_data_socket, page_chats: page_chats_socket };
 
 	}
 
     return chats_state;
     default:
-    return { ...state };
+	return { ...state };
+	
   }
  
 }

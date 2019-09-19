@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
 
@@ -10,6 +10,7 @@ const ChatMessages = styled.div`
     flex-direction: column;
     padding: 1rem;
     overflow: auto; 
+    position: relative;
 
     &::-webkit-scrollbar {
 
@@ -41,6 +42,8 @@ interface ChatHeaderProps {
 
 
 const ChatMsg: React.FC<ChatHeaderProps> = (props) => {
+
+   const ref: any = useRef(null);
 
    useEffect(()=>{
 
@@ -110,7 +113,7 @@ const ChatMsg: React.FC<ChatHeaderProps> = (props) => {
 
    `;
 
-   const dates: any = props.messages;
+  const dates: any = props.messages;
 
   const days_keys = Object.keys(dates);
 
@@ -120,6 +123,16 @@ const ChatMsg: React.FC<ChatHeaderProps> = (props) => {
             const hour_keys_b = Object.keys(dates[b]);
 
          return +new Date(dates[a][hour_keys_a[0]].date) - +new Date(dates[b][hour_keys_b[0]].date);
+
+   });
+
+   useEffect(()=>{
+
+      if (ref.current) {
+
+         ref.current.scrollIntoView({ block: 'end' });
+
+      }
 
    });
 
@@ -210,6 +223,7 @@ const ChatMsg: React.FC<ChatHeaderProps> = (props) => {
 
 
       })}
+      <div ref={ref}></div>
 	  </ChatMessages>);
 }
 

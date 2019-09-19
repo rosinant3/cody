@@ -120,11 +120,8 @@ const chatsModel: chatsTypes = {
 		const parameters = { chat_id: chat_id };
 
 		return knex.raw(`SELECT count(*) 
-						FROM userChatMsg as msg2
-						WHERE msg2.chat_id = :chat_id
-						ORDER BY msg2.created_at DESC
-						LIMIT :per_page 
-						OFFSET :offset`,
+						FROM userChatMsg
+						WHERE userChatMsg.chat_id = :chat_id`,
 						parameters);
 
 	},

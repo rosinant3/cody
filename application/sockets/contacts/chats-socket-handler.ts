@@ -72,7 +72,7 @@ const chatsSocketHandler: chatsInterface = {
     	if (page < 1) page = 1;
 		let offset = (page - 1) * per_page + corrector;
 		const getChats = chatsModel.getChat(data.chat_id, {offset: offset, per_page: per_page});
-		const countChat = chatsModel.countChats(data.chat_id);
+		const countChat = chatsModel.countChat(data.chat_id);
 
 		countChat.then((count2: any) => {
 			 
@@ -81,7 +81,7 @@ const chatsSocketHandler: chatsInterface = {
 			pagination.page.total = count;
 			pagination.page.per_page = per_page;
 			pagination.page.offset = offset;
-			pagination.page.current_page = page;
+			pagination.page.current_page = page + 1;
 			pagination.page.from = offset;
 
 			getChats.then((rows: any) => {

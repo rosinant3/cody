@@ -62,7 +62,7 @@ const Contact2: React.FC<ContactProps> = (props) => {
 				const hour = day[hourKeys[0]];
 
 				msg = hour.messages[0].msg; 
-				contact_date = moment(new Date(hour.messages[0].created_at)).format("MMM Do YY");
+				contact_date = moment(new Date(hour.messages[0].created_at)).fromNow();
 
 			}
 			
@@ -72,7 +72,7 @@ const Contact2: React.FC<ContactProps> = (props) => {
 		if (messagesKeys.length === 0) {
 
 			msg = `Write ${username} a message...`;
-			contact_date = moment(new Date(props.contact.created_at)).format("MMM Do YY");
+			contact_date = moment(new Date(props.contact.created_at)).fromNow();
 
 		}
 		if (msg.length > 31) { msg = `${msg.slice(0, 20)}...` }
